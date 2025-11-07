@@ -1,14 +1,19 @@
 import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../hooks";
+import { useAppSelector, useAppDispatch } from "../hooks";
+import { clearUser } from "./slices/userSlice";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.user);
 
-  const user = useAppSelector((state) => state.userName);
-  console.log(user, "user from redux");
+  const handleLogout = () => {
+    dispatch(clearUser());
+    navigate("/");
+  };
 
   return (
-    <header className="w-full bg-white border border-gray-300 p-4 flex items-center justify-between">
+    <header className="w-full bg-white border border-gray-300 p-4 flex items-center justify-between sticky top-0 z-10">
       <h1 className="text-xl font-bold">M-кар</h1>
 
       <div className="flex items-center space-x-4">
@@ -18,17 +23,14 @@ const Header = () => {
         >
           Тестовая ошибка!
         </button>
-
-        <p className="font-medium">{user?.name || ""}</p>
-
+        <p className="font-medium">{user?.name || "Гость"}</p>
         <button
-          onClick={() => navigate("/")}
+          onClick={handleLogout}
           className="px-4 py-2 border border-gray-300 bg-[#fdfefd] hover:bg-gray-200 rounded-xl transition"
         >
           Выйти
         </button>
       </div>
-
     </header>
   );
 };

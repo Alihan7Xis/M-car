@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import errorsReducer from "../slices/errorSlice";
-import userNameReducer from "../slices/userSlice"
-import carsReducer from "../slices/carSlice";
+import userReducer from "../slices/userSlice";
+import sortReducer from "../slices/sortSlice";
 
 export const store = configureStore({
   reducer: {
-    userName: userNameReducer,
+    user: userReducer,
     errors: errorsReducer,
-    cars: carsReducer,
+    sort: sortReducer,
   },
 });
